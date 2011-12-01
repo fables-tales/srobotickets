@@ -33,4 +33,4 @@ gem 'jquery-rails'
 # gem 'ruby-debug'
 gem 'rqrcode-rails3'
 gem 'mini_magick'
-
+gem 'net-ldap'

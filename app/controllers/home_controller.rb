@@ -13,7 +13,7 @@ class HomeController < ApplicationController
   def make_ticket
     @user_name = params[:user]
     @details = SRoboLDAP.instance.ldap_user_details({"username" => "ticket-manager", "password" => SRoboLDAP.ldappwd}, "sphippen")
-    @data_string = params[:user].lstrip.rstrip + " " + @details[:cn] + " " + @details[:sn] + " " + @details[:mail]
+    @data_string = params[:user].lstrip.rstrip + ":" + @details[:cn] + ":" + @details[:sn] + ":" + @details[:mail]
     digest = OpenSSL::Digest.new("sha256")
     key = SRoboLDAP.key
     @hmac = Base64.encode64(OpenSSL::HMAC.digest(OpenSSL::Digest.new("sha256"), SRoboLDAP.key, @data_string))

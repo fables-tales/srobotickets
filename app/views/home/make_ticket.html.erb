@@ -1,8 +1,8 @@
-<p><%= @user_name =%></p>
-<p><%= @details[:cn] =%></p>
-<p><%= @details[:sn] =%></p>
-<p><%= @details[:mail] =%></p>
-
-<p><%= @data_string =%></p>
-<p><%= @hmac =%></p>
-<img src="/qrrender/<%= CGI.escape(@hmac) =%>.png"/>
+<p>User name:<%= @user_name =%></p>
+<p>User's actual name: <%= @details[:cn] =%> <%= @details[:sn] =%></p>
+<p>User's email address<%= @details[:mail] =%></p>
+<hr/>
+<p>data string to be hmacd:<%= @data_string =%></p>
+<p>base64 hmac: <%= @hmac =%></p>
+<p>qr code of hmac and string</p>
+<img src="/qrrender/<%= CGI.escape(@hmac) + " " + @data_string =%>.png"/>

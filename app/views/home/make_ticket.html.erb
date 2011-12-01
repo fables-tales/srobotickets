@@ -5,4 +5,4 @@
 <p>data string to be hmacd:<%= @data_string =%></p>
 <p>base64 hmac: <%= @hmac =%></p>
 <p>qr code of hmac and string</p>
-<img src="/qrrender/<%= CGI.escape(CGI.escape(@hmac) + " " + @data_string =%>.png")/>
+<img src="/qrrender/<%= CGI.escape(Base64.encode64(@hmac + ":" + @data_string)) =%>.png"/>

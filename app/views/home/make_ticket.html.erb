@@ -1,4 +1,8 @@
-<%= @user_name =%>
+<p><%= @user_name =%></p>
+<p><%= @details[:cn] =%></p>
+<p><%= @details[:sn] =%></p>
+<p><%= @details[:mail] =%></p>
 
-
-<img src="/qrrender/<%= @data_string =%>.png"/>
+<p><%= @data_string =%></p>
+<p><%= @hmac =%></p>
+<img src="/qrrender/<%= CGI.escape(@hmac) =%>.png"/>

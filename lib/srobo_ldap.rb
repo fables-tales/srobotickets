@@ -35,7 +35,7 @@ class SRoboLDAP
              }
         if ldap.bind
             treebase="ou=users,o=sr"
-            filter="uid=sphippen"
+            filter="uid=" + user_search
             result = {}
             ldap.search(:base => treebase, :filter => filter) do |entry|
                 entry.each do |attribute, values|

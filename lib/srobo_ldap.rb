@@ -23,6 +23,32 @@ class SRoboLDAP
 
   end
 
+    def ldap_groups(auth_hash, user_search)
+        return dummy_groups auth_hash, user_search if self.class.dummy?
+        ldap = Net::LDAP.new :host => "localhost",
+             :port => 389,
+             :auth => {
+                   :method => :simple,
+                   :username => "uid=" + auth_hash["username"] + ",ou=users,o=sr",  
+                   :password => auth_hash["password"]
+             }
+        if ldap.bind
+            treebase= "ou=users,o=sr"
+            filter = "memberUid=" + user_search
+            ldap.search(:base => treebase, :filter => filter) do |entry|
+                entry.each do |attribute, value|
+                    puts attribute, value
+                end
+            end
+        
+        end
+    end
+
+
+    def dummy_groups(auth_hash, user_search)
+        return ["team1"]
+    end
+
     def ldap_user_details(auth_hash, user_search)
         return dummy_get_ldap_user_details auth_hash, user_search if self.class.dummy?
    
@@ -42,6 +68,32 @@ class SRoboLDAP
                     result[attribute] = values.each.next
                 end
             end        
+
+            correct_entry = ""
+    
+            for i in 1..21
+                treebase = "ou=groups,o=sr"
+                filter = "memberUid=" + user_search
+
+                ldap.search(:base => treebase, :filter => filter) do |entry|
+                    entry.each do |attribute, values|
+                        if attribute == "cn" && values.next =~ "^college-"
+                            correct_entry = entry
+                        end
+
+                    end 
+
+                end
+                
+            end
+
+
+            correct_entry.each do |attribute, values|
+                if attribute == "description"
+                    result["school"] = values.next
+                end
+            end
+
             return result
         else
             puts "losing"

@@ -1,11 +1,6 @@
-<p>User name:<%= @user_name =%></p>
-<p>User's actual name: <%= @details[:cn] =%> <%= @details[:sn] =%></p>
-<p>User's email address: <%= @details[:mail] =%></p>
-<p><%= @details[:school] =%></p>
-<hr/>
-<p>data string to be hmacd <pre><%= @data_string =%></pre></p>
-<p>base64 hmac: <%= @hmac =%></p>
-<p>qr code of hmac and string</p>
-<img src="/qrrender/<%= CGI.escape(Base64.encode64(@hmac + ":" + @data_string)) =%>.png"/>
-<h2>school</h2>
-<p><%=@school =%></p>
+<h1>Student Robotics Ticket</h1>
+<h2><%= @person_name =%></h2>
+<p>School: <%= @school =%></p>
+<p>Year: <%= @year   =%></p>
+<p>User name: <%= @user_name =%></p>
+<img src="/qrrender/<%= CGI.escape(@hmac_string + ":" + @hmac) =%>.png" />

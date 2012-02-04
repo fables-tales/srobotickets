@@ -33,15 +33,23 @@ class SRoboLDAP
                    :password => auth_hash["password"]
              }
         if ldap.bind
-            treebase= "ou=users,o=sr"
+            treebase= "ou=groups,o=sr"
             filter = "memberUid=" + user_search
+            groups = []
             ldap.search(:base => treebase, :filter => filter) do |entry|
                 entry.each do |attribute, value|
+                    if attribute.to_s == "cn"
+                        groups << value.to_s
+                    end
                     puts attribute, value
                 end
             end
-        
+
+            return groups
         end
+
+        return nil
+
     end
 
 

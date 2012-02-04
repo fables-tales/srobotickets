@@ -7,3 +7,5 @@
 <p>base64 hmac: <%= @hmac =%></p>
 <p>qr code of hmac and string</p>
 <img src="/qrrender/<%= CGI.escape(Base64.encode64(@hmac + ":" + @data_string)) =%>.png"/>
+<h2>school</h2>
+<p><%=@school =%></p>

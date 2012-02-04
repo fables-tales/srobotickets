@@ -15,6 +15,7 @@ class HomeController < ApplicationController
     @check = params[:check]
     if @check
         @details = SRoboLDAP.instance.ldap_user_details({"username" => "ticket-manager", "password" => SRoboLDAP.ldappwd}, @user_name)
+        @school  = team_to_school(SRoboLDAP.instance.ldap_groups({"username" => "tickets", "password" => SRoboLDAP.ldappwd}, @user_name))
         @data_string = params[:user].lstrip.rstrip + ":" + @details[:cn] + ":" + @details[:sn] + ":" + @details[:mail]
         digest = OpenSSL::Digest.new("sha256")
         key = SRoboLDAP.key

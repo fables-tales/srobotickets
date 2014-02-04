@@ -5,7 +5,7 @@ class HomeController < ApplicationController
     result = []
     parts.each do |part|
         letter = part[0]
-        letter = letter.capitalize
+        letter = letter.to_s.capitalize
         part = letter + part[1..-1]
         result << part
     end
